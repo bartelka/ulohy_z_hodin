@@ -14,22 +14,28 @@ height = 10
 
 wires = []
 explosion = 0
-
+pocet = 5
 def DrawWires():
     global wires, explosion
-    for i in range(5):
+    for i in range(pocet):
         wires.append(canvas.create_rectangle(ux, uy + height*i, ux+width, uy+height*(i+1), fill=colors[i]))
     explosion = random.choice(wires)
 
 def clicker(e):
-    #zistim ci som klikla na habel ak ano zistim ci id objektu je rovnake s explosion ak ano vypisem vyhral si
-
+    global x, y
+    if ux < e.x < ux+width and uy < e.y < uy+height*pocet:
+        color = canvas.find_overlapping(e.x,e.y,e.x,e.y)[0]
+        if color == explosion:
+            canvas.create_text(w/2, h-30, text="Vyhral si!", fill="black", font="Arial 25")
 
 h, w = 200, 500
 canvas = tk.Canvas(win, height=h, width=w, bg="white")
 canvas.pack()
 
 DrawWires()
+
+canvas.create_text(w/2, 50, text="Pyrotechnik", fill="blue",font="Arial 20")
+canvas.create_text(w/2, 70, text="označ správny kábel", fill="black",font="Arial 15")
 
 canvas.bind("<Button-1>", clicker)
 
