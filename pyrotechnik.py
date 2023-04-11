@@ -21,6 +21,8 @@ def DrawWires():
         wires.append(canvas.create_rectangle(ux, uy + height*i, ux+width, uy+height*(i+1), fill=colors[i]))
     explosion = random.choice(wires)
 
+def clicker(e):
+    #zistim ci som klikla na habel ak ano zistim ci id objektu je rovnake s explosion ak ano vypisem vyhral si
 
 
 h, w = 200, 500
@@ -29,6 +31,6 @@ canvas.pack()
 
 DrawWires()
 
-canvas.bind("<Button-1>")
+canvas.bind("<Button-1>", clicker)
 
 win.mainloop()
