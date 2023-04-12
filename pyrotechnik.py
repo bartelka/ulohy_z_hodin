@@ -15,6 +15,9 @@ height = 10
 wires = []
 explosion = 0
 pocet = 5
+ftime = 100
+
+
 def DrawWires():
     global wires, explosion
     for i in range(pocet):
@@ -28,14 +31,25 @@ def clicker(e):
         if color == explosion:
             canvas.create_text(w/2, h-30, text="Vyhral si!", fill="black", font="Arial 25")
 
+def changer():
+    global ftime, x, y
+    ftime -= 1
+    canvas.itemconfig(t, text=ftime)
+    canvas.after(100, changer())
+
+
 h, w = 200, 500
 canvas = tk.Canvas(win, height=h, width=w, bg="white")
 canvas.pack()
+
+t = canvas.create_text(ux+width+35,uy+height*2.5, text=ftime, fill="red", font="Arial 25")
 
 DrawWires()
 
 canvas.create_text(w/2, 50, text="Pyrotechnik", fill="blue",font="Arial 20")
 canvas.create_text(w/2, 70, text="označ správny kábel", fill="black",font="Arial 15")
+
+changer()
 
 canvas.bind("<Button-1>", clicker)
 
