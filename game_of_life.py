@@ -56,7 +56,7 @@ def rewrite(oldfield, newfield):
                 friends = return_friends(x, y, old_field)
                 if friends == 3:
                     new_field[y][x] = 1
-    
+
 width, height = fr.readline().split(" ")
 width = int(width)
 height = int(height)
@@ -67,7 +67,20 @@ old_field = create2Dmatrix(width,height)
 new_field = create2Dmatrix(width,height)
 #do 1.zoz nahodime 1 zo suboru
 processfile(old_field)
-print(old_field)
-print(rewrite(old_field, new_field))
+while True:
+    #printnes stari matrix
+    #vypocitas novy matrix
+    #novy hodime do stareho
+    #novy vynulujeme
+
+# 1. ak je v bunke organizmus a ten má práve 2 alebo 3 susedov, tak táto bunka prežije aj
+# # do ďalšej generácie
+# 2. ak je v bunke organizmus a má menej ako 2 susedov, organizmus do ďalšej generácie
+# # neprežije (umiera na samotu)
+# 3. ak je v bunke organizmus a má viac ako 3 susedov, organizmus do ďalšej generácie
+# # neprežije (umiera na premnoženie)
+# 4. ak v bunke nie je organizmus a zároveň má za susedov práve tri organizmy, tak sa tu v
+# # ďalšej generácii narodí nový organizmus.
+
 
 
