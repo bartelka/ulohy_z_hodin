@@ -23,57 +23,40 @@ def return_friends(x,y,matrix):
     count = 0
     #matrix [y][x]
     #navrhnem seriu ifov aby to fungovalo
-    for zoz in matrix:
-        for i in zoz:
-            if i == 1:
-                if x>0 and y>0:
-                    if [x,y-1] == "1":
-                        count+=1
-                    if [x-1,y-1] == "1":
-                        count += 1
-                    if [x+1,y-1] == "1":
-                        count += 1
-                    if [x+1,y] == "1":
-                        count += 1
-                    if [x-1,y] == "1":
-                        count += 1
-                    if [x,y+1] == "1":
-                        count += 1
-                    if [x+1,y+1] == "1":
-                        count += 1
-                    if [x-1,y+1] == "1":
-                        count += 1
-                elif x == 0 and y==0:
-                    if [x+1,y] == "1":
-                        count += 1
-                    if [x,y+1] == "1":
-                        count += 1
-                    if [x+1,y+1] == "1":
-                        count += 1
-                elif x == 0 and y > 0:
-                    if [x+1,y-1] == "1":
-                        count += 1
-                    if [x+1,y] == "1":
-                        count += 1
-                    if [x-1,y] == "1":
-                        count += 1
-                    if [x,y+1] == "1":
-                        count += 1
-                    if [x+1,y+1] == "1":
-                        count += 1
-                elif x>0 and y==0:
-                    if [x+1,y] == "1":
-                        count += 1
-                    if [x-1,y] == "1":
-                        count += 1
-                    if [x,y+1] == "1":
-                        count += 1
-                    if [x+1,y+1] == "1":
-                        count += 1
-                    if [x-1,y+1] == "1":
-                        count += 1
+    if x<width-1 and matrix[y][x+1] == 1:
+        count += 1
+    if x<width-1 and y<height-1 and matrix[y+1][x+1] == 1:
+        count += 1
+    if y<height-1 and matrix[y+1][x] == 1:
+        count += 1
+    if x>0 and y<height-1 and matrix[y+1][x-1] == 1:
+        count += 1
+    if x>0 and matrix[y][x-1] == 1:
+        count += 1
+    if x>0 and y>0 and matrix[y-1][x-1] == 1:
+        count += 1
+    if y>0 and matrix[y-1][x] == 1:
+        count += 1
+    if x<width-1 and y>0 and matrix[y-1][x+1] == 1:
+        count += 1
     return count
 
+def rewrite(oldfield, newfield):
+    for x in range(width):
+        for y in range(height):
+            if old_field[y][x] == 1:
+                friends = return_friends(x,y,old_field)
+                if friends == 2 or friends == 3:
+                    new_field[y][x] = 1
+                elif friends < 2:
+                    new_field[y][x] = 0
+                elif friends > 3:
+                    new_field[y][x] = 0
+            elif old_field[y][x] == 0:
+                friends = return_friends(x, y, old_field)
+                if friends == 3:
+                    new_field[y][x] = 1
+    
 width, height = fr.readline().split(" ")
 width = int(width)
 height = int(height)
@@ -84,14 +67,7 @@ old_field = create2Dmatrix(width,height)
 new_field = create2Dmatrix(width,height)
 #do 1.zoz nahodime 1 zo suboru
 processfile(old_field)
-
-# 1. ak je v bunke organizmus a ten má práve 2 alebo 3 susedov, tak táto bunka prežije aj
-# # do ďalšej generácie
-# # 2. ak je v bunke organizmus a má menej ako 2 susedov, organizmus do ďalšej generácie
-# # neprežije (umiera na samotu)
-# # 3. ak je v bunke organizmus a má viac ako 3 susedov, organizmus do ďalšej generácie
-# # neprežije (umiera na premnoženie)
-# # 4. ak v bunke nie je organizmus a zároveň má za susedov práve tri organizmy, tak sa tu v
-# # ďalšej generácii narodí nový organizmus.
+print(old_field)
+print(rewrite(old_field, new_field))
 
 
