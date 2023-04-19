@@ -1,4 +1,4 @@
-fr = open("input.gol", "r", encoding="utf-8")
+fr = open("gol.txt", "r", encoding="utf-8")
 
 def create2Dmatrix(width, height):
     matrix = []
@@ -72,6 +72,10 @@ while True:
     #vypocitas novy matrix
     #novy hodime do stareho
     #novy vynulujeme
+    print(old_field)
+    rewrite(old_field, new_field)
+    old_field = new_field.copy()
+    new_field = create2Dmatrix(width, height)
 
 # 1. ak je v bunke organizmus a ten má práve 2 alebo 3 susedov, tak táto bunka prežije aj
 # # do ďalšej generácie
@@ -81,6 +85,4 @@ while True:
 # # neprežije (umiera na premnoženie)
 # 4. ak v bunke nie je organizmus a zároveň má za susedov práve tri organizmy, tak sa tu v
 # # ďalšej generácii narodí nový organizmus.
-
-
 
