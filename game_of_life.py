@@ -76,7 +76,7 @@ while True:
     rewrite(old_field, new_field)
     old_field = new_field.copy()
     new_field = create2Dmatrix(width, height)
-
+    input()
 # 1. ak je v bunke organizmus a ten má práve 2 alebo 3 susedov, tak táto bunka prežije aj
 # # do ďalšej generácie
 # 2. ak je v bunke organizmus a má menej ako 2 susedov, organizmus do ďalšej generácie
