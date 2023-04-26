@@ -2,7 +2,7 @@ import tkinter as tk
 win = tk.Tk()
 
 #width, height
-w = 600
+w = 750
 h = 600
 
 #cell_list = []
@@ -12,7 +12,7 @@ canvas.pack()
 
 fr = open("input.gol", "r", encoding="utf-8")
 
-def draw_grid(win_size=30):
+def draw_grid(win_size=15):
     count = h // win_size
     for i in range(count):
         canvas.create_line(0, i*win_size, w,i*win_size)
@@ -20,7 +20,7 @@ def draw_grid(win_size=30):
     for i in range(count):
         canvas.create_line(i*win_size, 0, i*win_size, h)
 
-def draw_cells(old_field, win_size=30):
+def draw_cells(old_field, win_size=15):
     canvas.delete("all")
     draw_grid()
     # for item in cell_list:
@@ -46,7 +46,7 @@ def processfile(matrix):
     for row in fr:
         x = 0
         for char in row:
-            if char == "1":
+            if char == "X":
                 matrix[y][x]=1
             x += 1
         y += 1
@@ -121,3 +121,5 @@ generations()
     #vymaz vsetky objekty ktorych id je v cell_list
 
 win.mainloop()
+#glider dun
+#doprogramovat tlacidlo, automaticky, a po kroku
