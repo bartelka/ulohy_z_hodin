@@ -68,7 +68,7 @@ new_field = create2Dmatrix(width,height)
 #do 1.zoz nahodime 1 zo suboru
 processfile(old_field)
 while True:
-    #printnes stari matrix
+    #printnes stary matrix
     #vypocitas novy matrix
     #novy hodime do stareho
     #novy vynulujeme
