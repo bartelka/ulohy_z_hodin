@@ -5,6 +5,8 @@ win = tk.Tk()
 w = 600
 h = 600
 
+#cell_list = []
+
 canvas = tk.Canvas(width = w, height = h, bg = "white")
 canvas.pack()
 
@@ -17,6 +19,18 @@ def draw_grid(win_size=30):
     count = w // win_size
     for i in range(count):
         canvas.create_line(i*win_size, 0, i*win_size, h)
+
+def draw_cells(old_field, win_size=30):
+    canvas.delete("all")
+    draw_grid()
+    # for item in cell_list:
+    #     canvas.delete(item)
+    cell_list = []
+    for y in range(height):
+        for x in range(width):
+            if old_field[y][x] == 1:
+                cell_list.append(canvas.create_oval(x*win_size, y*win_size, (x + 1)*win_size, (y+1)*win_size, fill = "purple"))
+
 
 def create2Dmatrix(width, height):
     matrix = []
@@ -88,12 +102,14 @@ processfile(old_field)
 #kreslenie mriezky
 draw_grid()
 
+
 def generations():
     #printnes stary matrix
     #vypocitas novy matrix
     #novy hodime do stareho
     #novy vynulujeme
     global old_field, new_field
+    draw_cells(old_field)
     print(old_field)
     rewrite(old_field, new_field)
     old_field = new_field.copy()
