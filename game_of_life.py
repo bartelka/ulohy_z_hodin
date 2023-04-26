@@ -1,4 +1,22 @@
-fr = open("gol.txt", "r", encoding="utf-8")
+import tkinter as tk
+win = tk.Tk()
+
+#width, height
+w = 600
+h = 600
+
+canvas = tk.Canvas(width = w, height = h, bg = "white")
+canvas.pack()
+
+fr = open("input.gol", "r", encoding="utf-8")
+
+def draw_grid(win_size=30):
+    count = h // win_size
+    for i in range(count):
+        canvas.create_line(0, i*win_size, w,i*win_size)
+    count = w // win_size
+    for i in range(count):
+        canvas.create_line(i*win_size, 0, i*win_size, h)
 
 def create2Dmatrix(width, height):
     matrix = []
@@ -67,22 +85,23 @@ old_field = create2Dmatrix(width,height)
 new_field = create2Dmatrix(width,height)
 #do 1.zoz nahodime 1 zo suboru
 processfile(old_field)
-while True:
+#kreslenie mriezky
+draw_grid()
+
+def generations():
     #printnes stary matrix
     #vypocitas novy matrix
     #novy hodime do stareho
     #novy vynulujeme
+    global old_field, new_field
     print(old_field)
     rewrite(old_field, new_field)
     old_field = new_field.copy()
     new_field = create2Dmatrix(width, height)
-    input()
-# 1. ak je v bunke organizmus a ten má práve 2 alebo 3 susedov, tak táto bunka prežije aj
-# # do ďalšej generácie
-# 2. ak je v bunke organizmus a má menej ako 2 susedov, organizmus do ďalšej generácie
-# # neprežije (umiera na samotu)
-# 3. ak je v bunke organizmus a má viac ako 3 susedov, organizmus do ďalšej generácie
-# # neprežije (umiera na premnoženie)
-# 4. ak v bunke nie je organizmus a zároveň má za susedov práve tri organizmy, tak sa tu v
-# # ďalšej generácii narodí nový organizmus.
+    canvas.after(100,generations)
 
+generations()
+#2 drawcells( )
+    #vymaz vsetky objekty ktorych id je v cell_list
+
+win.mainloop()
