@@ -1,36 +1,54 @@
 import tkinter as tk
+import random
 win = tk.Tk()
 
-h, w = 500, 500
+#width, height
+w = 650
+h = 450
 
-def clicker(e):
-    #ak som klikol na objekt, zaamata si suradnice
-    global x, y
-    zoz = canvas.find_overlapping(e.x, e.y, e.x+1, e.y+1)
-    if ob1 in zoz:
-        x = e.x
-        y = e.y
+#cell_list = []
 
-def mover(e):
-    global x, y
-    if x != 0 and y != 0:
-        dx = e.x - x
-        dy = e.y - y
-        canvas.move(ob1, dx, dy)
-        x = e.x
-        y = e.y
-
-def releaser(e):
-    global x, y
-    x, y = 0, 0
-
-canvas = tk.Canvas(win, height=h , width=w, bg="white")
+canvas = tk.Canvas(width = w, height = h, bg = "white")
 canvas.pack()
 
-ob1 = canvas.create_polygon(10,20,40,40,150,200, fill="magenta")
+d=15
+movement = [1*d,1*d]
 
-canvas.bind("<Button-1>", clicker)
+farby = ["red", "purple", "orange","yellow","blue","green","black","magenta","turquoise"]
+kruzok = canvas.create_oval(w/2-20,h/2-20,w/2,h/2, fill=random.choice(farby))
+
+
+desk = canvas.create_rectangle(w/2-50, h-20, w/2+50, h, fill="black")
+
+
+def ball_move():
+    global movement
+    canvas.move(kruzok,movement[0],movement[1])
+    canvas.itemconfig(kruzok, fill=random.choice(farby))
+    if canvas.coords(kruzok)[0] < 0:
+        movement[0] *= (-1)
+    if canvas.coords(kruzok)[1] < 0:
+        movement[1] *= (-1)
+    if canvas.coords(kruzok)[2] > w:
+        movement[0] *= (-1)
+    if canvas.coords(kruzok)[3] > h:
+        movement[1] *= (-1)
+    canvas.after(50,ball_move)
+
+def starter(e):
+    global x
+    zoz = canvas.find_overlapping(e.x, e.y, e.x+1, e.y+1)
+    if desk in zoz:
+        x = e.x
+        ball_move()
+
+def mover(e):
+    global x
+    if x != 0:
+        mouse = e.x - x
+        canvas.move(desk, mouse, 0)
+        x = e.x
+
+canvas.bind("<Button-1>", starter)
 canvas.bind("<B1-Motion>", mover)
-canvas.bind("<ButtonRelease>", releaser)
-
 win.mainloop()
