@@ -34,8 +34,11 @@ def changer(e):
 def spinner(e):
     click = canvas.find_overlapping(e.x, e.y, e.x + 1, e.y +1)
     image = canvas.itemcget(click[0],"image")
-    canvas.itemconfig(click[0],image=img3)
-    #doplnit if
+    print(image)
+    if image == "pyimage3":
+        canvas.itemconfig(click[0],image=img3)
+    if image == "pyimage4":
+        canvas.itemconfig(click[0], image=img2)
 
 def set_up():
     global water, islands
