@@ -15,3 +15,4 @@ def genhesla(h):
             genhesla(h-1)
 
 genhesla(hlbka)
+#du dorobit aby to slo odpredu
