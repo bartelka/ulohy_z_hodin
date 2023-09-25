@@ -12,6 +12,8 @@ def input_parser(fr,sudoku):
 
 input_parser(fr,sudoku)
 
+print(sudoku)
+
 def check(x:int,y:int,n:int) -> bool:
     for j in range(9):
         if sudoku[j][x] == n or sudoku[y][j] == n:
@@ -36,5 +38,30 @@ def sudoku_solver():
                         sudoku_solver()
                         sudoku[y][x] = 0
                 return
-    print(sudoku)
+    draw_sudoku()
+
+def draw_sudoku():
+    a = 50
+    for i in range(10):
+        if i == 3 or i == 6 or i == 0 or i == 9:
+            width = 5
+        else:
+            width = 2
+        canvas.create_line(i * a, 0, i * a, h, fill="black", width=width)
+        canvas.create_line(0 , i * a, w, i*a, fill="black", width=width)
+    for y in range(9):
+        for x in range(9):
+            canvas.create_text(x*50+25,y*50+25,text=sudoku[y][x],font = ("arial",40), anchor = tk.CENTER)
+
+
+import tkinter as tk
+
+w = 450
+h = 450
+
+win = tk.Tk()
+canvas = tk.Canvas(win,height=h,width=w,bg="white")
+canvas.pack()
 sudoku_solver()
+
+win.mainloop()
