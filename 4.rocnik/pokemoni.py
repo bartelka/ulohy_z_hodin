@@ -35,6 +35,55 @@ for j,i in data.items():
                 slov[y[z]] = slov.get(y[z],0)
             #print(slov)
             data1[x].update(slov)
-print(data)
-print(data1)
-print(data1["Normal"]["Ghost"])
+# print(data)
+# print(data1)
+#print(data1["Ice"]["Flying"])
+
+def attack(pt,dt,zoznam):
+    zoznam = zoznam.strip().split(",")
+    utok_pt = 0
+    prvy_tim = [i.strip().split(" ") for i in zoznam[:pt]]
+    druhy_tim = [i.strip().split(" ") for i in zoznam[pt:]]
+    utok_dt = 0
+    for i in prvy_tim:
+        for j in druhy_tim:
+            if len(i) == 1:
+                if len(j) == 1:
+                    utok_pt += data1[i[0]][j[0]]
+                if len(j) == 2:
+                    utok_pt += data1[i[0]][j[0]] * data1[i[0]][j[1]]
+            if len(i) == 2:
+                if len(j) == 1:
+                    x = max(data1[i[0]][j[0]],data1[i[1]][j[0]])
+                    utok_pt += x
+                if len(j) == 2:
+                    x = max(data1[i[0]][j[0]]*data1[i[0]][j[1]],data1[i[1]][j[0]]*data1[i[1]][j[1]])
+                    utok_pt += x
+    for i in druhy_tim:
+        for j in prvy_tim:
+            if len(i) == 1:
+                if len(j) == 1:
+                    utok_dt += data1[i[0]][j[0]]
+                if len(j) == 2:
+                    utok_dt += data1[i[0]][j[0]] * data1[i[0]][j[1]]
+            if len(i) == 2:
+                if len(j) == 1:
+                    x = max(data1[i[0]][j[0]], data1[i[1]][j[0]])
+                    utok_dt += x
+                if len(j) == 2:
+                    x = max(data1[i[0]][j[0]] * data1[i[0]][j[1]], data1[i[1]][j[0]] * data1[i[1]][j[1]])
+                    utok_dt += x
+    vys = ""
+    utok_pt = round(utok_pt,1)
+    utok_dt = round(utok_dt,1)
+    if utok_pt > utok_dt:
+        vys = "ME"
+    elif utok_dt > utok_pt:
+        vys = "FOE"
+    elif utok_pt == utok_dt:
+        vys = "EQUAL"
+
+    return(utok_pt,utok_dt,vys)
+
+
+print(attack(4,4,"Psychic Dark,Fire,Ghost Ice,Fairy Electric,Normal Steel,Ghost,Poison Fire,Dark Bug"))
