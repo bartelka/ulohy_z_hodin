@@ -1,0 +1,19 @@
+import random
+znaky = {}
+
+pocet = 5000
+interval = [1,10001]
+relat_pocetnost = {}
+
+for i in range(pocet):
+    print(i)
+    a = random.randrange(interval[0],interval[1])
+    b = random.randrange(interval[0],interval[1])
+    cislo = str(a ** b)
+    znaky[cislo[0]] = znaky.get(cislo[0],0) + 1
+
+for znak,poc in znaky.items():
+    x = round(poc / pocet * 100,2)
+    relat_pocetnost[znak] = relat_pocetnost.get(znak,x)
+
+print(relat_pocetnost)
