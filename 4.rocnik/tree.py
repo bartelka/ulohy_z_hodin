@@ -43,3 +43,30 @@ t.get_left_tree().add_right(6)
 #vypise hodnotu
 #rekurzivne na lavo if left_tree
 #rekurzivne doprava if right_tree
+
+
+import requests, re
+
+fr = open("hrany.txt", "r", encoding="utf-8")
+hrany = [i.strip().split(";") for i in fr]
+print(hrany)
+
+page = requests.get("http://www.kolko-km-je.ubytovaniesr.sk")
+page.encoding = "windows-1250"
+
+text = page.text
+text = re.split("<option value=''>|</select>", text)
+text = text[1].split("</option>")[1:-1]
+
+obce = {}
+
+for i in text:
+    cislo = re.findall(r"(\d+)", i)
+    obec = i.split(">")[1]
+    obce[obec] = obce.get(obec, int(cislo[0]))
+
+for i in hrany:
+    data = {"ob1":obce[i[0]], "ob2":obce[i[1]]}
+    vzdialenost = requests.post("http://www.kolko-km-je.ubytovaniesr.sk", data=data)
+    print(re.split("Odpoveď:>|km", vzdialenost.text))
+print(obce)
